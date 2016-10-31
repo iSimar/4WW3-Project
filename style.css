@@ -1,0 +1,578 @@
+/*CSS for layout*/
+html, body{
+  /*
+    setting the html, body height to 100%, required for the background image,
+    reseting the default margin and padding to 0 (normalizing)
+  */
+  height: 100%; 
+  margin: 0;
+  padding: 0;
+}
+body{
+  /*
+  setting background color to light gray,
+  setting the font-family using a font from google fonts
+  */
+  background: #ecf0f1;
+  font-family: 'Work Sans', sans-serif;
+}
+table{
+  /*
+  table width to fill its parent by 100%, used for tabluar format in results
+  */
+  width: 100%;
+}
+.header,
+.footer,
+.menu{
+  /*
+  header, footer, and menu div boxes are set to float left and fill the parent width.
+  this is required to stack the header and menu.
+  */
+  float: left;
+  width: 100%;
+}
+.header,
+.footer{
+  /*
+  background color of header and footer is set, text alignment is set to center.
+  color of the text is also set.
+  */
+  background: #2c3e50;
+  text-align: center;
+  color: #2ecc71;
+}
+.footer{
+  /*
+  footer is to be sticky at the bottom, so it's position is set to be fixed.
+  padding, color, background border of the div box is also set
+  */
+  position: fixed;
+  bottom : 0;
+  padding: 10px 0px;
+  color: #2c3e50;
+  background: #ecf0f1;
+  border-top: 1px solid #2c3e50;
+}
+.footer .footer-text{
+  /*
+  footer-text inside the footer div box is set to margin zero, it has a different default value
+  */
+  margin: 0;
+}
+.menu{
+  /*
+  menu div's text aligment is set to be centered. background color is also set
+  */
+  text-align: center;
+  background: #34495e;
+}
+.menu .active-link{
+  /*
+  active link is optional class in the menu, set to have a bottom border, to show they are on that page.
+  */
+  border-bottom: 3px solid #2ecc71;
+}
+.content{
+  /*
+  content div box to fill parent height by 100%
+  */
+  height: 100%;
+}
+.inner-content{
+  /*
+  child div box of inner conent to have top padding, center text alignment, text color, and center the content.
+  */
+  padding-top: 150px;
+  text-align: center;
+  color: #2c3e50;
+  margin: 0 auto;
+}
+.inner-content .content-title{
+  /*
+  overriding default value of margin of content-title
+  */
+  margin: 0;
+}
+a{
+  /*
+  So link tags aren't underlined, overriding defalut value
+  */
+  text-decoration: none;
+}
+.menu a{
+  /*
+  styling of a link tags inside of menu div box.
+  display inline-block to have them side by side, 
+  text alignment is centered, 
+  font-size is FORCED with !important 
+  color is set
+  padding of (top & bottom) and (left & right) are set with shortcut
+  soild bottom border is set
+  */
+  display: inline-block;
+  text-align: center;
+  font-size: 1.5em !important;
+  color: #2ecc71;
+  padding: 8px 20px;
+  border-bottom: 3px solid #34495e;
+}
+a.small-link{
+  /*forcing different font-size and color for link tags with small-link class*/
+  font-size: 15px !important;
+  color: #2ecc71;
+}
+a:hover{
+  /*when cursor hovers over a link tag*/
+  color: #27ae60;
+}
+a.button{
+  /*forcing different font-size and color for link tags with button class
+  background color is different, 
+  padding of (top & bottom) and (left & right) are set with shortcut
+  display is inline, so have them side by side, so they don't take up the whole line
+  */
+  font-size: 1.5em !important;
+  background: #27ae60;
+  color: #ecf0f1;
+  padding: 10px 20px;
+  display: inline-block;
+  text-align: center;
+}
+a.button:hover{
+  /*
+  when cursor hovers over a button class link tag, its background color changes
+  */
+  background: #2ecc71;
+}
+.gray-box{
+  /*
+  div box with a background color that has 0.6 opacity, 
+  padding, max width, text color is also set
+  */
+  background-color: rgba(236,240,241, 0.6);
+  padding: 10px 20px;
+  max-width: 40%;
+  color: #2c3e50;
+}
+.blue-box{
+  /*
+  div box with a background color that has 0.6 opacity, 
+  padding, max width, text color is also set, 
+  margin: 0 auto is set to center the content of the div box horizontally
+  */
+  background-color: rgb(44,62,80);
+  padding: 10px 20px;
+  max-width: 40%;
+  color: #2c3e50;
+  margin: 0 auto;
+}
+.blue-box h2{
+  /*
+  styling h2 tag inside of blue-box div box, text aligment is set to the left
+  */
+  color: #2ecc71;
+  text-align: left;
+}
+.textbox{
+  /*
+  styling of a generic text input field,
+  font size, solid border, padding, border radius (corners)
+  outline-width is set to override default, chrome doesn't higlight it with blue color.
+  box-sizing is set to override default value, box doesn't go over it's parents padding
+  */
+  font-size: 25px;
+  border:2px solid #95a5a6;
+  outline-width: 0;
+  padding: 5px 6px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.text-box-full-width{
+  /*
+  to style input text field to fill parent's width
+  */
+  width: 100%;
+}
+.textbox:focus{
+  /*
+  styling when a input text field is focused, change border color
+  */
+  border:2px solid #2ecc71;
+}
+.small-sweeper{
+  /*
+  for helper div box, add padding of 10px
+  */
+  padding: 10px;
+}
+.large-sweeper{
+  /*
+  for helper div box, add padding of 24px
+  */
+  padding: 24px;
+}
+.dropdown {
+  /*
+  styling the select tag, dropdown options box. height, border, background color, font-size, padding, outline-width is set.
+  */
+  height: 34px;
+  border:2px solid #95a5a6;
+  background: #fff;
+  font-size: 18px;
+  padding: 5px 6px;
+  outline-width: 0;
+}
+.form-label{
+  /*
+  generic styling for labels in gray box, fontsize and text color are set
+  */
+  font-size: 25px;
+  color: #34495e;
+}
+.small-h2{
+  /*
+  custom fontsize for using h2 tag
+  */
+  font-size: 15px;
+}
+.divider{
+  /*
+  flat divider line using a border 
+  */
+  border-bottom: 2px solid #2c3e50;
+}
+/*CSS ends for layout*/
+
+/*CSS for index.html*/
+.homepage-content{
+  /*
+  setting background of content div box,
+  background postion and size are set.
+  */
+  background-image: url('./images/homepage-background.jpg');
+  background-position: center;
+  background-size: cover;
+}
+.intro-box{
+  /*
+  version of gray-box, postion and its location using left and top are set
+  */
+  position: absolute;
+  left: 8%;
+  top: 30%;
+}
+/*CSS ends for index.html*/
+
+/*CSS for search.html*/
+.search-box{
+  /*
+  version of gray-box with relative positioning.
+  overflow is set to auto, so if content exceed box size, scroll.
+  margin is auto center.
+  top and padding in the bottom are set.
+  */
+  position: relative;
+  overflow: auto;
+  margin: auto;
+  top: 15%; 
+  padding-bottom: 36px;
+}
+.search-button{
+  /*
+  section button is to stick to the right, thus float is used.
+  */
+  float: right;
+}
+/*CSS ends for search.html*/
+
+/*CSS for submit.html*/
+.place-name-textbox{
+  /*
+  version of textbox, fill parent width by 99%
+  */
+  width: 99%;
+}
+.location-textbox{
+  /*
+  version of textbox, fill parent width by 49%
+  */
+  width: 49%;
+}
+.submit-dropdown{
+  /*
+  version of dropdown, stick to the left, thus using float
+  */
+  float: left;
+}
+.select-image{
+  /*
+  styling input type file is set, color font-size and sticking to left using float.
+  */
+  color: #fff;
+  font-size: 18px;
+  float: left;
+}
+/*CSS ends for submit.html*/
+
+/*CSS for login.html*/
+.login-box{
+  /*
+  verson of blue-box, with max-width of 30%, relative to it's parents width
+  */
+  max-width: 30%;
+}
+/*CSS ends for login.html*/
+
+/*CSS for register.html*/
+.terms-line{
+  /*text color of the terms-line in registeration form*/
+  color: #ecf0f1;
+}
+/*CSS ends for register.html*/
+
+/*CSS for results.html*/
+.search-results-inner-content{
+  /*
+  child over content div box, max width is 80% relative to parent (content).
+  text aligment of content inside is set to be left
+  */
+  max-width: 80%;
+  text-align: left;
+}
+.search-results-search-box{
+  /*
+  redefine search box to stick to left
+  */
+  float: left;
+  width: 200px;
+  max-width: 200px;
+}
+.search-results-results-box{
+  /*
+  styling llist view of results
+  */
+  margin-left: 252px;
+}
+.search-results-result-box{
+  /*
+  styling llist view of results
+  */
+  max-width: 100%;
+  margin-bottom: 12px;
+  background: transparent;
+  border-bottom: 2px solid #2c3e50;
+  padding-bottom: 15px;
+}
+.search-results-results-box .flat-line{
+  /*
+  flat line between results view
+  */
+  border-bottom: 2px solid #2c3e50;
+  margin-bottom: 15px;
+}
+.search-results-result-box .details {
+  display: inline-block; 
+  vertical-align:top;
+  padding-left: 8px;
+}
+.search-results-result-box  .small-map{
+  display: inline-block; 
+  vertical-align:top;
+  border: 2px solid #27ae60;
+}
+.search-results-result-box h2{
+  color: #27ae60;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+.search-results-result-box h3{
+  color: #34495e;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+/*CSS ends for results.html*/
+
+/*CSS for result.html*/
+.result-title{
+  color: #27ae60;
+}
+.wide-map-placeholder{
+  width:100%;
+}
+.user-reviews-box{
+}
+.user-review-box{
+  max-width: 100%;
+  margin-bottom: 12px;
+  background: transparent;
+  padding-bottom: 15px;
+}
+.user-review-box .dp-image{
+ max-width: 100px;
+ max-height: 100px;
+}
+.user-review-box .details {
+  display: inline-block; 
+  vertical-align:top;
+  padding-left: 8px;
+}
+.user-review-box h2{
+  color: #27ae60;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+.user-review-box h3{
+  color: #34495e;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+/*CSS for result.html*/
+
+/*media queries start here*/
+@media (max-width: 1028px){
+  .search-results-search-box{
+    display: none;
+  }
+  .search-results-results-box{
+    margin-left: 0px;
+  }
+}
+@media (max-width: 896px) {
+  .header h1{
+    font-size: 1.7em !important;
+  }
+  .menu a{
+    font-size: 1.1em !important;
+  }
+  .gray-box{
+    max-width: 60%;
+  }
+  .gray-box h1{
+    font-size: 1.7em !important;
+  }
+  .blue-box{
+    max-width: 60%;
+  }
+  a.button{
+    font-size: 1.1em !important;
+  }
+  .form-label{
+    font-size: 20px;
+  }
+  h1.content-title{
+    font-size: 1.79em !important;
+  }
+  h2.content-title{
+    font-size: 1.5em !important;
+  }
+  .search-results-result-box  .small-map{
+    width: 145px;
+    height: 135px;
+  }
+}
+@media (max-width: 750px) {
+  .intro-box{
+    position: relative !important;
+    top: 5% !important; 
+    left: 0 !important;
+    overflow: auto;
+    margin: auto;
+  }
+  .search-results-result-box h2{
+    font-size: 1.3em !important;
+  }
+  .search-results-result-box h3{
+    font-size: 1.0em !important;
+  }
+}
+@media (max-width: 596px) {
+  .search-results-result-box  .small-map{
+    display: none;
+  }
+  .details h2{
+    font-size: 1.3em !important;
+  }
+  .details h3{
+    font-size: 1.0em !important;
+  }
+  
+}
+@media (max-height: 320px) {
+  .gray-box{
+    max-width: 90%;
+  }
+  .intro-desc{
+    display: none;
+  }
+  .search-box{
+    top: 0;
+    max-width: 100%;
+  }
+  .search-box h1{
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+}
+@media (max-width: 512px) {
+  .menu .sign-up-link{
+    display: none;
+  }
+  .gray-box{
+    max-width: 80%;
+  }
+  .blue-box{
+    max-width: 80%;
+  }
+  .search-box{
+    top: 5% !important;
+  }
+  .textbox{
+    font-size: 20px;
+  }
+  .dropdown{
+    width: 100%;
+  }
+  .search-button{
+    margin-top: 25px;
+  }
+  h1.content-title{
+    font-size: 1.7em !important;
+  }
+  h2.content-title{
+    font-size: 1.3em !important;
+  }
+  .gray-box h1{
+    font-size: 1.5em !important;
+  }
+  .dp-image{
+    display: none;
+  }
+}
+@media (max-width: 396px) {
+  .gray-box{
+    padding-bottom: 20px;
+  }
+  .gray-box h1{
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  .intro-box h1{
+    text-align: left;
+  }
+  .gray-box h4{
+    font-size: 0.9em;
+  }
+  h1.content-title{
+    padding-top: 20px;
+  }
+  .location-textbox{
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px; 
+  }
+  .menu a{
+    padding: 8px 37px;
+  }
+}
+/*media queries end here*/
