@@ -9,6 +9,8 @@
         <link rel="stylesheet" type="text/css" href="./style.css">
         <!-- fetch and link google font to html page -->
         <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+        <!-- import jquery 3.1.1 core -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     </head> <!-- ending head tag -->
     <body>
         <div class="header">
@@ -26,8 +28,10 @@
                 <h1>
                     Search Wifi Hotspots
                 </h1>
-                <input type="search" class="textbox text-box-full-width" placeholder="Postal Code or Address"/>
-                <div class="small-sweeper"></div>
+                <input type="search" class="textbox text-box-full-width search-textbox show" placeholder="Postal Code or Address" id="searchTextBox"/>
+                 <a class="small-link-2 underlined" id="useCurrentLocation">
+                    <h3>Use Current Location</h3>
+                </a>
                 <span class="form-label">
                     Rating:
                 </span>
@@ -49,5 +53,6 @@
                 All rights reserved, 2016. Simarpreet Singh. Made in Hamilton, ON.
             </h5><!-- ending footer-text h5 tag -->
         </div><!-- ending footer -->
+        <script src="./index.js" type="text/javascript"></script>
     </body><!-- ending body tag -->
 </html><!-- ending html tag -->

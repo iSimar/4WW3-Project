@@ -19,12 +19,17 @@ const submissionErrorBoxTitleSuffix = 'SubmissionErrorBoxTitle'; //Suffix used t
 const submissionErrorBoxDescSuffix = 'SubmissionErrorBoxDesc'; //Suffix used to generate the error box description  div tag id
 const submitButtonId = 'submitButton'; //id used for submit button in submission form
 
+const useCurrentLocationButtonId = 'useCurrentLocation'; //id used for use current location button on search page
+const searchTextBoxButtonId = 'searchTextBox'; //id used for search textbox field on search page
+var currentLocationLocked = false;
+
 // this function is called when the page loads
 window.onload = function() {
   bindRegisterInputFieldsChange(); // function call to bind all the register fields with on change callback function
   bindSubmissionInputFieldsChange(); // function call to bind all the submission fields with on change callback function
   $('#'+registerButtonId).click(onClickRegisterButton); //set on click jquery call back function when the register button is clicked on the registration form page
   $('#'+submitButtonId).click(onClickSubmitButton); //set on click jquery call back function when the submit button is clicked on the submission form page
+  $('#'+useCurrentLocationButtonId).click(onClickUseCurrentLocation);
 };
 
 function bindRegisterInputFieldsChange(){
@@ -36,7 +41,6 @@ function bindRegisterInputFieldsChange(){
             $('#'+fieldName).removeClass('textbox-error');
             //remove the correspondent error box of the registeration field by removing the .show style class of the div tag
             $('#'+fieldName+registerErrorBoxSuffix).removeClass('show');
-            console.log(registerFormFields);
         });
     }
 }
@@ -50,7 +54,6 @@ function bindSubmissionInputFieldsChange(){
             $('#'+fieldName).removeClass('textbox-error');
             //remove the correspondent error box of the submission field by removing the .show style class of the div tag
             $('#'+fieldName+submissionErrorBoxSuffix).removeClass('show');
-            console.log(submissionFormFields);
         });
     }
 }
@@ -59,7 +62,6 @@ function bindSubmissionInputFieldsChange(){
 function onClickRegisterButton(){
     //loop through registeration field ids
     for (var field in registerFormFields) {
-        console.log(registerFormFields[field].value);
         var validateType = capitalize(registerFormFields[field].validate); //field validation type, capitalize first letter
         var validationFunction = window['validate'+validateType]; //window['stringhere'] makes a function using a string, so window['stringhere']() means stringhere()
         var validationFunctionResponse = validationFunction(registerFormFields[field].value);
@@ -74,7 +76,6 @@ function onClickRegisterButton(){
             $('#'+field+registerErrorBoxDescSuffix).html(validationFunctionResponse.details);
         }
     }
-    console.log('register button clicked');
 }
 
 //called when the submit button on the submission form page is clicked
@@ -95,7 +96,6 @@ function onClickSubmitButton(){
             $('#'+field+submissionErrorBoxDescSuffix).html(validationFunctionResponse.details);
         }
     }
-    console.log('Submit button clicked');
 }
 
 //this function takes a string value and checks if all the characters in the string are alphabets, returns a boolean value
@@ -159,4 +159,20 @@ function validateUrl(value){
 //utils function to capitalize first letter of string s
 function capitalize(s){
     return s[0].toUpperCase() + s.slice(1);
+}
+
+function onClickUseCurrentLocation() {
+    if(!currentLocationLocked){
+        currentLocationLocked = true;
+        $('#'+useCurrentLocationButtonId).removeClass('underlined');
+        $('#'+useCurrentLocationButtonId).html('<h3>Finding your location...</h3>');
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position){
+                $('#'+searchTextBoxButtonId).removeClass('show');
+                $('#'+useCurrentLocationButtonId).html('<h2>Your Location: ('+position.coords.latitude+', '+position.coords.longitude+')</h2>');
+            });
+        } else {
+            $('#'+useCurrentLocationButtonId).html('<h3>Geolocation is not supported by this browser.</h3>');
+        }
+    }
 }

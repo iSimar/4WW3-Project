@@ -122,6 +122,12 @@ a.small-link{
   font-size: 15px !important;
   color: #2ecc71;
 }
+a.small-link-2{
+  /*forcing different font-size and color for link tags with small-link class*/
+  font-size: 15px !important;
+  color: #34495e;
+  cursor: pointer;
+}
 a:hover{
   /*when cursor hovers over a link tag*/
   color: #27ae60;
@@ -251,6 +257,9 @@ a.button:hover{
 .show{
   display: block !important;
 }
+.underlined{
+  text-decoration: underline;
+}
 /*CSS ends for layout*/
 
 /*CSS for index.html*/
@@ -287,6 +296,11 @@ a.button:hover{
   top: 15%; 
   padding-bottom: 36px;
 }
+
+.search-textbox{
+  display: none;
+}
+
 .search-button{
   /*
   section button is to stick to the right, thus float is used.
