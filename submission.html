@@ -34,9 +34,12 @@
                 <div class="small-sweeper"></div>
                 <div class="blue-box submit-box">
                     <h2>Location</h2>
-                    <input type="text" class="textbox location-textbox" placeholder="Longitude"/>
-                    <input type="text" class="textbox location-textbox" placeholder="Latitude"/>
+                    <input type="text" class="textbox location-textbox" placeholder="Longitude" id="longitudeTextbox"/>
+                    <input type="text" class="textbox location-textbox" placeholder="Latitude" id="latitudeTextbox"/>
                     <br/>
+                    <a class="small-link underlined" id="useCurrentLocation" onclick="onClickUseCurrentLocation()" style="text-align: left;">
+                        <h3>Use Current Location</h3>
+                    </a>
                     <h2>Website (Optional)</h2>
                     <input type="text" class="textbox text-box-full-width" placeholder="http://example.com" id="url"/>
                     <div class="error-message-box" id="urlSubmissionErrorBox">
@@ -76,6 +79,7 @@
                 All rights reserved, 2016. Simarpreet Singh. Made in Hamilton, ON.
             </h5><!-- ending footer-text h5 tag -->
         </div><!-- ending footer -->
-        <script src="./index.js" type="text/javascript"></script>
+        <script src="./js/formValidation.js" type="text/javascript"></script>
+        <script src="./js/submission.js" type="text/javascript"></script>
     </body><!-- ending body tag -->
 </html><!-- ending html tag -->

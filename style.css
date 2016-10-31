@@ -121,6 +121,7 @@ a.small-link{
   /*forcing different font-size and color for link tags with small-link class*/
   font-size: 15px !important;
   color: #2ecc71;
+  cursor: pointer;
 }
 a.small-link-2{
   /*forcing different font-size and color for link tags with small-link class*/
@@ -256,6 +257,9 @@ a.button:hover{
 }
 .show{
   display: block !important;
+}
+.hide{
+  display: none !important;
 }
 .underlined{
   text-decoration: underline;

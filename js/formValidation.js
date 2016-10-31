@@ -19,18 +19,12 @@ const submissionErrorBoxTitleSuffix = 'SubmissionErrorBoxTitle'; //Suffix used t
 const submissionErrorBoxDescSuffix = 'SubmissionErrorBoxDesc'; //Suffix used to generate the error box description  div tag id
 const submitButtonId = 'submitButton'; //id used for submit button in submission form
 
-const useCurrentLocationButtonId = 'useCurrentLocation'; //id used for use current location button on search page
-const searchTextBoxButtonId = 'searchTextBox'; //id used for search textbox field on search page
-var currentLocationLocked = false;
-
 // this function is called when the page loads
 window.onload = function() {
   bindRegisterInputFieldsChange(); // function call to bind all the register fields with on change callback function
   bindSubmissionInputFieldsChange(); // function call to bind all the submission fields with on change callback function
   $('#'+registerButtonId).click(onClickRegisterButton); //set on click jquery call back function when the register button is clicked on the registration form page
   $('#'+submitButtonId).click(onClickSubmitButton); //set on click jquery call back function when the submit button is clicked on the submission form page
-  $('#'+useCurrentLocationButtonId).click(onClickUseCurrentLocation);
-  initResultsMap();
 };
 
 function bindRegisterInputFieldsChange(){
@@ -102,7 +96,7 @@ function onClickSubmitButton(){
 //this function takes a string value and checks if all the characters in the string are alphabets, returns a boolean value
 function validateAlphabetic(value){
    if(value){ //if value isn't null
-    if(/^[a-zA-Z]+$/.test(value)){ //use regex to see if all the characters are between a to z or A to Z
+    if(/^[a-zA-Z\s]+$/.test(value)){ //use regex to see if all the characters are between a to z or A to Z
         return {isValid: true, error: null, details: null};
     }
     return {isValid: false, error: 'Must be alphabetic', details: '"'+value+'" contains other characters than letters.'};
@@ -160,137 +154,4 @@ function validateUrl(value){
 //utils function to capitalize first letter of string s
 function capitalize(s){
     return s[0].toUpperCase() + s.slice(1);
-}
-
-function onClickUseCurrentLocation() {
-    if(!currentLocationLocked){
-        currentLocationLocked = true;
-        $('#'+useCurrentLocationButtonId).removeClass('underlined');
-        $('#'+useCurrentLocationButtonId).html('<h3>Finding your location...</h3>');
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position){
-                $('#'+searchTextBoxButtonId).removeClass('show');
-                $('#'+useCurrentLocationButtonId).html('<h2>Your Location: ('+position.coords.latitude+', '+position.coords.longitude+')</h2>');
-            });
-        } else {
-            $('#'+useCurrentLocationButtonId).html('<h3>Geolocation is not supported by this browser.</h3>');
-        }
-    }
-}
-
-
-function initResultsMap() {
-  const mockMarkers = [
-      {
-          name: 'BSB Hotspot',
-          latitude:  43.2605813,
-          longitude: -79.9216803
-      },
-      {
-          name: 'Starbuck Coffee Shop',
-          latitude:  43.2575522,
-          longitude: -79.9188318
-      },
-      {
-          name: 'Williams Fresh Cafe Wifi',
-          latitude:  43.2574843,
-          longitude: -79.9188905
-      },
-      {
-          name: 'Starbuck Coffee Shop',
-          latitude:  43.2575522,
-          longitude: -79.9188318
-      },
-      {
-          name: 'Comp Sci Boys Wifi',
-          latitude:  43.259926,
-          longitude: -79.9169168
-      },
-      {
-          name: 'MDCL Student Wifi',
-          latitude:  43.2605415,
-          longitude: -79.917716
-      },
-      {
-          name: 'Phoenix Bar Hotspot',
-          latitude:  43.2620846,
-          longitude: -79.9203285
-      }
-
-  ];
-  var allResultsMap = new google.maps.Map(
-        document.getElementById('searchAllResultsMap'), 
-        { 
-            center: new google.maps.LatLng(43.261433, -79.9222597), 
-            zoom: 15
-        }
-  );
-  var marker0 = new google.maps.Marker({
-        position: {lat: mockMarkers[0].latitude, lng: mockMarkers[0].longitude},
-        map: allResultsMap
-  });
-  marker0.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[0].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
-        }).open(allResultsMap, marker0);
-  });
-  var marker1 = new google.maps.Marker({
-        position: {lat: mockMarkers[1].latitude, lng: mockMarkers[1].longitude},
-        map: allResultsMap
-  });
-  marker1.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[1].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
-        }).open(allResultsMap, marker1);
-  });
-  var marker2 = new google.maps.Marker({
-        position: {lat: mockMarkers[2].latitude, lng: mockMarkers[2].longitude},
-        map: allResultsMap
-  });
-  marker2.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[2].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
-        }).open(allResultsMap, marker2);
-  });
-  var marker3 = new google.maps.Marker({
-        position: {lat: mockMarkers[3].latitude, lng: mockMarkers[3].longitude},
-        map: allResultsMap
-  });
-  marker3.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[3].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
-        }).open(allResultsMap, marker3);
-  });
-  var marker4 = new google.maps.Marker({
-        position: {lat: mockMarkers[4].latitude, lng: mockMarkers[4].longitude},
-        map: allResultsMap
-  });
-  marker4.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[4].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
-        }).open(allResultsMap, marker4);
-  });
-  var marker5 = new google.maps.Marker({
-        position: {lat: mockMarkers[5].latitude, lng: mockMarkers[5].longitude},
-        map: allResultsMap
-  });
-  marker5.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[5].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
-        }).open(allResultsMap, marker5);
-  });
-
-  for(var i = 0; i<mockMarkers.length-1; i++){
-    var map = new google.maps.Map(
-        document.getElementById('searchResultsMap-'+i), 
-        { 
-            center: new google.maps.LatLng(mockMarkers[i].latitude, mockMarkers[i].longitude), 
-            zoom: 13
-        }
-    );
-    var singleMarker= new google.maps.Marker({
-        position: {lat: mockMarkers[i].latitude, lng: mockMarkers[i].longitude},
-        map: map
-    });
-  }
 }

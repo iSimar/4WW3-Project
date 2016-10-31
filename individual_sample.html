@@ -9,6 +9,12 @@
         <link rel="stylesheet" type="text/css" href="./style.css">
         <!-- fetch and link google font to html page -->
         <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+        <!-- import jquery 3.1.1 core -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <!-- import google maps api -->
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js">
+        </script>
     </head> <!-- ending head tag -->
     <body> <!-- starting body tag -->
         <div class="header"> <!-- starting header div box tag -->
@@ -37,7 +43,8 @@
                 <div class="small-sweeper"></div>
                 <div class="divider"></div>
                 <div class="small-sweeper"></div>
-                <img src="./images/wide-map-placeholder.png" class="wide-map-placeholder" alt="map-holder"/>
+                <div id="indiviualResultMap" style="width:100%;height:300px"></div>
+                <!--<img src="./images/wide-map-placeholder.png" class="wide-map-placeholder" alt="map-holder"/>-->
                 <div class="small-sweeper"></div>
                 <div class="divider"></div>
                 <div class="small-sweeper"></div>
@@ -94,5 +101,6 @@
                 All rights reserved, 2016. Simarpreet Singh. Made in Hamilton, ON.
             </h5><!-- ending footer-text h5 tag -->
         </div><!-- ending footer -->
+        <script src="./js/individual_result.js" type="text/javascript"></script>
     </body><!-- ending body tag -->
 </html><!-- ending html tag -->
