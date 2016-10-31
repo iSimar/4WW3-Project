@@ -138,6 +138,7 @@ a.button{
   padding: 10px 20px;
   display: inline-block;
   text-align: center;
+  cursor: pointer;
 }
 a.button:hover{
   /*
@@ -187,6 +188,11 @@ a.button:hover{
   padding: 5px 6px;
   border-radius: 5px;
   box-sizing: border-box;
+}
+.textbox-error{
+  border: 2px solid #e74c3c;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 .text-box-full-width{
   /*
@@ -241,6 +247,9 @@ a.button:hover{
   flat divider line using a border 
   */
   border-bottom: 2px solid #2c3e50;
+}
+.show{
+  display: block !important;
 }
 /*CSS ends for layout*/
 
@@ -328,6 +337,23 @@ a.button:hover{
 .terms-line{
   /*text color of the terms-line in registeration form*/
   color: #ecf0f1;
+}
+.error-message-box{
+  display: none;
+  background-color: #ecf0f1;
+  text-align: left;
+  padding: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.error-message-box .error-message-box-title{
+  font-size: 20px;
+  color: #e74c3c;
+  font-weight: 600;
+}
+.error-message-box .error-message-box-description{
+  color: #e74c3c;
+  
 }
 /*CSS ends for register.html*/
 

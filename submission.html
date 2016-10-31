@@ -9,6 +9,8 @@
         <link rel="stylesheet" type="text/css" href="./style.css">
         <!-- fetch and link google font to html page -->
         <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+        <!-- import jquery 3.1.1 core -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     </head> <!-- ending head tag -->
         <body> <!-- starting body tag -->
         <div class="header"> <!-- starting header div box tag -->
@@ -35,6 +37,17 @@
                     <input type="text" class="textbox location-textbox" placeholder="Longitude"/>
                     <input type="text" class="textbox location-textbox" placeholder="Latitude"/>
                     <br/>
+                    <h2>Website (Optional)</h2>
+                    <input type="text" class="textbox text-box-full-width" placeholder="http://example.com" id="url"/>
+                    <div class="error-message-box" id="urlSubmissionErrorBox">
+                        <div class="error-message-box-title" id="urlSubmissionErrorBoxTitle">
+                            Error Title
+                        </div>
+                        <div class="error-message-box-description" id="urlSubmissionErrorBoxDesc">
+                            This is the explaination of the error.
+                        </div>
+                    </div>
+                    <br/>
                     <h2>Rating</h2>
                     <select class="dropdown submit-dropdown">
                       <option selected>Any</option>
@@ -49,9 +62,8 @@
                     <h2>Select Image</h2>
                     <input type="file" class="select-image" name="image" accept="image/*">
                     <br/>
-                    <br/>
-                    <br/>
-                    <a href="#" class="button">Submit</a>
+                    <div class="small-sweeper"></div>
+                    <a class="button" id="submitButton">Submit</a>
                     <br/>
                     <br/>
                 </div>
@@ -64,5 +76,6 @@
                 All rights reserved, 2016. Simarpreet Singh. Made in Hamilton, ON.
             </h5><!-- ending footer-text h5 tag -->
         </div><!-- ending footer -->
+        <script src="./index.js"></script>
     </body><!-- ending body tag -->
 </html><!-- ending html tag -->
