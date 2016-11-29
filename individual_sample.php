@@ -21,11 +21,11 @@
             <h1>Spotted Wifi</h1> <!-- h1 tag for the header text -->
         </div> <!-- ending header div box tag -->
         <div class="menu"> <!-- starting menu div box tag, a tags are the standar links of the nav bar  -->
-            <a href="index.html">Home</a>
-            <a href="search.html" class="active-link">Search</a>
-            <a href="submission.html">Submit</a>
-            <a href="login.html">Login</a>
-            <a href="registration.html" class="sign-up-link">Signup</a>
+            <a href="index.php">Home</a>
+            <a href="search.php" class="active-link">Search</a>
+            <a href="submission.php">Submit</a>
+            <a href="login.php">Login</a>
+            <a href="registration.php" class="sign-up-link">Signup</a>
         </div>
         <div class="content">
             <div class="inner-content search-results-inner-content">
@@ -59,7 +59,7 @@
                             <img class="dp-image" src="./images/dp.png" alt="user-dp"/>
                         </a>
                         <div class="details">
-                            <a href="result.html">
+                            <a href="result.php">
                                 <h2>Bobby Page</h2>
                             </a>
                             <h3>5 Stars</h3>
@@ -71,7 +71,7 @@
                             <img class="dp-image" src="./images/dp.png" alt="user-dp"/>
                         </a>
                         <div class="details">
-                            <a href="result.html">
+                            <a href="result.php">
                                 <h2>Lary Green</h2>
                             </a>
                             <h3>3 Stars</h3>
@@ -83,7 +83,7 @@
                             <img class="dp-image" src="./images/dp.png" alt="user-dp"/>
                         </a>
                         <div class="details">
-                            <a href="result.html">
+                            <a href="result.php">
                                 <h2>Marlin Clan</h2>
                             </a>
                             <h3>4 Stars</h3>

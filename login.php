@@ -15,11 +15,11 @@
             <h1>Spotted Wifi</h1> <!-- h1 tag for the header text -->
         </div> <!-- ending header div box tag -->
         <div class="menu"> <!-- starting menu div box tag, a tags are the standar links of the nav bar  -->
-            <a href="index.html">Home</a>
-            <a href="search.html">Search</a>
-            <a href="submission.html">Submit</a>
-            <a href="login.html" class="active-link">Login</a>
-            <a href="registration.html" class="sign-up-link">Signup</a>
+            <a href="index.php">Home</a>
+            <a href="search.php">Search</a>
+            <a href="submission.php">Submit</a>
+            <a href="login.php" class="active-link">Login</a>
+            <a href="registration.php" class="sign-up-link">Signup</a>
         </div>
         <div class="content">
             <div class="inner-content">
@@ -36,7 +36,7 @@
                     <a href="#" class="button">Login</a>
                     <br/>
                     <br/>
-                    <a href="registration.html" class="small-link">Create an account</a>
+                    <a href="registration.php" class="small-link">Create an account</a>
                 </div>
                 <div class="large-sweeper"></div>
                 <div class="large-sweeper"></div>

@@ -15,11 +15,11 @@
             <h1>Spotted Wifi</h1> <!-- h1 tag for the header text -->
         </div> <!-- ending header div box tag -->
         <div class="menu"> <!-- starting menu div box tag, a tags are the standar links of the nav bar  -->
-            <a href="index.html" class="active-link">Home</a>
-            <a href="search.html">Search</a>
-            <a href="submission.html">Submit</a>
-            <a href="login.html">Login</a>
-            <a href="registration.html" class="sign-up-link">Signup</a>
+            <a href="index.php" class="active-link">Home</a>
+            <a href="search.php">Search</a>
+            <a href="submission.php">Submit</a>
+            <a href="login.php">Login</a>
+            <a href="registration.php" class="sign-up-link">Signup</a>
         </div>
         <div class="content homepage-content">
             <!-- the content of this page is gray box, with description of the website
@@ -34,7 +34,7 @@
                     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </h4>
-                <a href="search.html" class="button">Search Wifi Hotspots</a>
+                <a href="search.php" class="button">Search Wifi Hotspots</a>
                 <br/>
                 <br/>
             </div>

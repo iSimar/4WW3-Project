@@ -21,11 +21,11 @@
             <h1>Spotted Wifi</h1> <!-- h1 tag for the header text -->
         </div> <!-- ending header div box tag -->
         <div class="menu"> <!-- starting menu div box tag, a tags are the standar links of the nav bar  -->
-            <a href="index.html">Home</a>
-            <a href="search.html" class="active-link">Search</a>
-            <a href="submission.html">Submit</a>
-            <a href="login.html">Login</a>
-            <a href="registration.html" class="sign-up-link">Signup</a>
+            <a href="index.php">Home</a>
+            <a href="search.php" class="active-link">Search</a>
+            <a href="submission.php">Submit</a>
+            <a href="login.php">Login</a>
+            <a href="registration.php" class="sign-up-link">Signup</a>
         </div>
         <div class="content">
             <div class="inner-content search-results-inner-content">
@@ -50,7 +50,7 @@
                       <option>1 Stars</option>
                     </select>
                     <div class="small-sweeper"></div>
-                    <a href="results_sample.html" class="button">Search</a>
+                    <a href="results_sample.php" class="button">Search</a>
                 </div>
                 <div class="search-results-results-box">
                     <div class="flat-line"></div>
@@ -63,7 +63,7 @@
                                 <div class="search-results-result-box">
                                     <div id="searchResultsMap-0" class="small-map" style="width:180px;height:180px"></div>
                                     <div class="details">
-                                        <a href="individual_sample.html">
+                                        <a href="individual_sample.php">
                                             <h2>BSB Hotspot</h2>
                                         </a>
                                         <h3>1280 Main St W, Hamilton, Ontario</h3>
@@ -79,7 +79,7 @@
                                 <div class="search-results-result-box">
                                     <div id="searchResultsMap-1" class="small-map" style="width:180px;height:180px"></div>
                                     <div class="details">
-                                        <a href="individual_sample.html">
+                                        <a href="individual_sample.php">
                                             <h2>Starbuck Coffee Shop</h2>
                                         </a>
                                         <h3>1341 Main St W, Hamilton, Ontario</h3>
@@ -95,7 +95,7 @@
                                 <div class="search-results-result-box">
                                     <div id="searchResultsMap-2" class="small-map" style="width:180px;height:180px"></div>
                                     <div class="details">
-                                        <a href="individual_sample.html">
+                                        <a href="individual_sample.php">
                                             <h2>Williams Fresh Cafe Wifi</h2>
                                         </a>
                                         <h3>1309 Main St W, Hamilton, Ontario</h3>
@@ -111,7 +111,7 @@
                                 <div class="search-results-result-box">
                                     <div id="searchResultsMap-3" class="small-map" style="width:180px;height:180px"></div>
                                     <div class="details">
-                                        <a href="individual_sample.html">
+                                        <a href="individual_sample.php">
                                             <h2>Comp Sci Boys Wifi</h2>
                                         </a>
                                         <h3>1271 King St W, Hamilton, Ontario</h3>
@@ -127,7 +127,7 @@
                                 <div class="search-results-result-box">
                                     <div id="searchResultsMap-4" class="small-map" style="width:180px;height:180px"></div>
                                     <div class="details">
-                                        <a href="individual_sample.html">
+                                        <a href="individual_sample.php">
                                             <h2>MDCL Student Wifi</h2>
                                         </a>
                                         <h3>1280 Main St W, Hamilton, Ontario</h3>
@@ -143,7 +143,7 @@
                                 <div class="search-results-result-box">
                                     <div id="searchResultsMap-5" class="small-map" style="width:180px;height:180px"></div>
                                     <div class="details">
-                                        <a href="individual_sample.html">
+                                        <a href="individual_sample.php">
                                             <h2>Phoenix Bar Hotspot</h2>
                                         </a>
                                         <h3>1280 Main Street W., Hamilton, Ontario</h3>

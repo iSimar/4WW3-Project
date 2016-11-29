@@ -17,11 +17,11 @@
             <h1>Spotted Wifi</h1>
         </div>
         <div class="menu">
-            <a href="index.html">Home</a>
-            <a href="search.html" class="active-link">Search</a>
-            <a href="submission.html">Submit</a>
-            <a href="login.html">Login</a>
-            <a href="registration.html" class="sign-up-link">Signup</a>
+            <a href="index.php">Home</a>
+            <a href="search.php" class="active-link">Search</a>
+            <a href="submission.php">Submit</a>
+            <a href="login.php">Login</a>
+            <a href="registration.php" class="sign-up-link">Signup</a>
         </div>
         <div class="content homepage-content">
             <div class="gray-box search-box">
@@ -43,7 +43,7 @@
                   <option>2 Stars</option>
                   <option>1 Stars</option>
                 </select>
-                <a href="results_sample.html" class="button search-button">  
+                <a href="results_sample.php" class="button search-button">  
                     Search
                 </a>
             </div>
