@@ -56,7 +56,7 @@ function initResultsMap() {
   });
   marker0.addListener('click', function() {
         new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[0].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
+            content: '<h3>'+mockMarkers[0].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
         }).open(allResultsMap, marker0);
   });
   var marker1 = new google.maps.Marker({
@@ -65,7 +65,7 @@ function initResultsMap() {
   });
   marker1.addListener('click', function() {
         new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[1].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
+            content: '<h3>'+mockMarkers[1].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
         }).open(allResultsMap, marker1);
   });
   var marker2 = new google.maps.Marker({
@@ -74,7 +74,7 @@ function initResultsMap() {
   });
   marker2.addListener('click', function() {
         new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[2].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
+            content: '<h3>'+mockMarkers[2].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
         }).open(allResultsMap, marker2);
   });
   var marker3 = new google.maps.Marker({
@@ -83,7 +83,7 @@ function initResultsMap() {
   });
   marker3.addListener('click', function() {
         new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[3].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
+            content: '<h3>'+mockMarkers[3].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
         }).open(allResultsMap, marker3);
   });
   var marker4 = new google.maps.Marker({
@@ -92,7 +92,7 @@ function initResultsMap() {
   });
   marker4.addListener('click', function() {
         new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[4].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
+            content: '<h3>'+mockMarkers[4].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
         }).open(allResultsMap, marker4);
   });
   var marker5 = new google.maps.Marker({
@@ -101,7 +101,7 @@ function initResultsMap() {
   });
   marker5.addListener('click', function() {
         new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[5].name+'</h3><a class="small-link" href="individual_sample.html">Learn More...</a>'
+            content: '<h3>'+mockMarkers[5].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
         }).open(allResultsMap, marker5);
   });
 
