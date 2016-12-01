@@ -26,6 +26,9 @@
         </div>
         <div class="content">
             <?php
+                ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
                 $processed = $_SERVER['REQUEST_METHOD'] === 'POST';
                 $accountCreated = false;
                 
@@ -58,8 +61,9 @@
                     $count_username_query = $db->query("SELECT count(*) FROM `users` WHERE username='$username'");
                     if($count_username_query->fetchColumn()==0){
                         $username_exists = false;
-                        $md5_password = md5($password);
-                        $insert_user_query = $db->query("INSERT INTO `users`(`username`, `password`, `birth_date`, `email`, `phone_number`, `full_name`) VALUES ('$username','$md5_password','$birthDate','$email','$phone','$fullName')");
+                        $salt = bin2hex(openssl_random_pseudo_bytes(20));
+                        $hash_password = hash('sha256', $password.$salt);
+                        $insert_user_query = $db->query("INSERT INTO `users`(`username`, `password`, `salt`, `birth_date`, `email`, `phone_number`, `full_name`) VALUES ('$username','$hash_password','$salt','$birthDate','$email','$phone','$fullName')");
                         $accountCreated = true;
                     }
                     else{
