@@ -32,6 +32,10 @@
                         $user_id_query = $db->query("SELECT `id` FROM `users` WHERE username='$username' AND password='$hash_password'");
                         $user_id = $user_id_query->fetchColumn();
                         if($user_id){
+                            $new_salt = bin2hex(openssl_random_pseudo_bytes(20));
+                            $new_hash_password = hash('sha256', $password.$new_salt);
+                            $update_salt_hash_password_query = $db->prepare("UPDATE `users` SET `password`='$new_hash_password', `salt`='$new_salt' WHERE `id`='$user_id'");
+                            $update_salt_hash_password_query->execute();
                             $new_session_id = hash('sha256', bin2hex(openssl_random_pseudo_bytes(20)));
                             $insert_session_query = $db->query("INSERT INTO `sessions`(`id`, `user_id`) VALUES ('$new_session_id','$user_id')");
                             session_start();
