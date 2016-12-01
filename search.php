@@ -13,16 +13,7 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     </head> <!-- ending head tag -->
     <body>
-        <div class="header">
-            <h1>Spotted Wifi</h1>
-        </div>
-        <div class="menu">
-            <a href="index.php">Home</a>
-            <a href="search.php" class="active-link">Search</a>
-            <a href="submission.php">Submit</a>
-            <a href="login.php">Login</a>
-            <a href="registration.php" class="sign-up-link">Signup</a>
-        </div>
+        <?php include 'header.php' ?>
         <div class="content homepage-content">
             <div class="gray-box search-box">
                 <h1>

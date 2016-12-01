@@ -11,16 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
     </head> <!-- ending head tag -->
     <body> <!-- starting body tag -->
-        <div class="header"> <!-- starting header div box tag -->
-            <h1>Spotted Wifi</h1> <!-- h1 tag for the header text -->
-        </div> <!-- ending header div box tag -->
-        <div class="menu"> <!-- starting menu div box tag, a tags are the standar links of the nav bar  -->
-            <a href="index.php">Home</a>
-            <a href="search.php">Search</a>
-            <a href="submission.php">Submit</a>
-            <a href="login.php" class="active-link">Login</a>
-            <a href="registration.php" class="sign-up-link">Signup</a>
-        </div>
+        <?php include 'header.php' ?>
         <div class="content">
             <?php
                 $post_request = $_SERVER['REQUEST_METHOD'] === 'POST';
@@ -44,7 +35,8 @@
                             $new_session_id = hash('sha256', bin2hex(openssl_random_pseudo_bytes(20)));
                             $insert_session_query = $db->query("INSERT INTO `sessions`(`id`, `user_id`) VALUES ('$new_session_id','$user_id')");
                             session_start();
-                            $_SESSION['session'] = $new_session_id;
+                            $_SESSION['session_id'] = $new_session_id;
+                            $_SESSION['session_username'] = $username;
                             header("Location: https://{$_SERVER['HTTP_HOST']}/index.php");
                         }
                         else{

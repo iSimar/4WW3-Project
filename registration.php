@@ -14,16 +14,7 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     </head> <!-- ending head tag -->
     <body> <!-- starting body tag -->
-        <div class="header"> <!-- starting header div box tag -->
-            <h1>Spotted Wifi</h1> <!-- h1 tag for the header text -->
-        </div> <!-- ending header div box tag -->
-        <div class="menu"> <!-- starting menu div box tag, a tags are the standar links of the nav bar  -->
-            <a href="index.php">Home</a>
-            <a href="search.php">Search</a>
-            <a href="submission.php">Submit</a>
-            <a href="login.php">Login</a>
-            <a href="registration.php" class="sign-up-link active-link">Signup</a>
-        </div>
+        <?php include 'header.php' ?>
         <div class="content">
             <?php
                 $processed = $_SERVER['REQUEST_METHOD'] === 'POST';
