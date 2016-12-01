@@ -41,7 +41,12 @@
                             session_start();
                             $_SESSION['session_id'] = $new_session_id;
                             $_SESSION['session_username'] = $username;
-                            header("Location: https://{$_SERVER['HTTP_HOST']}/index.php");
+                            if($_GET['goTo']==='submit'){
+                                header("Location: https://{$_SERVER['HTTP_HOST']}/submission.php");
+                            }
+                            else{
+                                header("Location: https://{$_SERVER['HTTP_HOST']}/index.php");
+                            }
                         }
                         else{
                             $incorrect_username_or_password = true;
@@ -58,7 +63,7 @@
                 </h1>
                 <div class="small-sweeper"></div>
                 <div class="blue-box login-box">
-                    <form action="login.php" method="POST">
+                    <form action="login.php?goTo=<?php echo $_GET['goTo'] ?>" method="POST">
                     <br/>
                     <input type="text" class="textbox text-box-full-width" placeholder="Username" name="username" value="<?php echo $username ?>"/>
                     <?php
