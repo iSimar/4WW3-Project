@@ -133,7 +133,8 @@ a:hover{
   /*when cursor hovers over a link tag*/
   color: #27ae60;
 }
-a.button{
+a.button,
+input.button{
   /*forcing different font-size and color for link tags with button class
   background color is different, 
   padding of (top & bottom) and (left & right) are set with shortcut
@@ -498,7 +499,8 @@ a.button:hover{
   .blue-box{
     max-width: 60%;
   }
-  a.button{
+  a.button,
+  input.button{
     font-size: 1.1em !important;
   }
   .form-label{
