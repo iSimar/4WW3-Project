@@ -43,67 +43,67 @@ function initResultsMap() {
       }
 
   ];
-  var allResultsMap = new google.maps.Map(
-        document.getElementById('searchAllResultsMap'), 
-        { 
-            center: new google.maps.LatLng(43.261433, -79.9222597), 
-            zoom: 15
-        }
-  );
-  var marker0 = new google.maps.Marker({
-        position: {lat: mockMarkers[0].latitude, lng: mockMarkers[0].longitude},
-        map: allResultsMap
-  });
-  marker0.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[0].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
-        }).open(allResultsMap, marker0);
-  });
-  var marker1 = new google.maps.Marker({
-        position: {lat: mockMarkers[1].latitude, lng: mockMarkers[1].longitude},
-        map: allResultsMap
-  });
-  marker1.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[1].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
-        }).open(allResultsMap, marker1);
-  });
-  var marker2 = new google.maps.Marker({
-        position: {lat: mockMarkers[2].latitude, lng: mockMarkers[2].longitude},
-        map: allResultsMap
-  });
-  marker2.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[2].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
-        }).open(allResultsMap, marker2);
-  });
-  var marker3 = new google.maps.Marker({
-        position: {lat: mockMarkers[3].latitude, lng: mockMarkers[3].longitude},
-        map: allResultsMap
-  });
-  marker3.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[3].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
-        }).open(allResultsMap, marker3);
-  });
-  var marker4 = new google.maps.Marker({
-        position: {lat: mockMarkers[4].latitude, lng: mockMarkers[4].longitude},
-        map: allResultsMap
-  });
-  marker4.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[4].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
-        }).open(allResultsMap, marker4);
-  });
-  var marker5 = new google.maps.Marker({
-        position: {lat: mockMarkers[5].latitude, lng: mockMarkers[5].longitude},
-        map: allResultsMap
-  });
-  marker5.addListener('click', function() {
-        new google.maps.InfoWindow({
-            content: '<h3>'+mockMarkers[5].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
-        }).open(allResultsMap, marker5);
-  });
+//   var allResultsMap = new google.maps.Map(
+//         document.getElementById('searchAllResultsMap'), 
+//         { 
+//             center: new google.maps.LatLng(43.261433, -79.9222597), 
+//             zoom: 15
+//         }
+//   );
+//   var marker0 = new google.maps.Marker({
+//         position: {lat: mockMarkers[0].latitude, lng: mockMarkers[0].longitude},
+//         map: allResultsMap
+//   });
+//   marker0.addListener('click', function() {
+//         new google.maps.InfoWindow({
+//             content: '<h3>'+mockMarkers[0].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
+//         }).open(allResultsMap, marker0);
+//   });
+//   var marker1 = new google.maps.Marker({
+//         position: {lat: mockMarkers[1].latitude, lng: mockMarkers[1].longitude},
+//         map: allResultsMap
+//   });
+//   marker1.addListener('click', function() {
+//         new google.maps.InfoWindow({
+//             content: '<h3>'+mockMarkers[1].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
+//         }).open(allResultsMap, marker1);
+//   });
+//   var marker2 = new google.maps.Marker({
+//         position: {lat: mockMarkers[2].latitude, lng: mockMarkers[2].longitude},
+//         map: allResultsMap
+//   });
+//   marker2.addListener('click', function() {
+//         new google.maps.InfoWindow({
+//             content: '<h3>'+mockMarkers[2].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
+//         }).open(allResultsMap, marker2);
+//   });
+//   var marker3 = new google.maps.Marker({
+//         position: {lat: mockMarkers[3].latitude, lng: mockMarkers[3].longitude},
+//         map: allResultsMap
+//   });
+//   marker3.addListener('click', function() {
+//         new google.maps.InfoWindow({
+//             content: '<h3>'+mockMarkers[3].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
+//         }).open(allResultsMap, marker3);
+//   });
+//   var marker4 = new google.maps.Marker({
+//         position: {lat: mockMarkers[4].latitude, lng: mockMarkers[4].longitude},
+//         map: allResultsMap
+//   });
+//   marker4.addListener('click', function() {
+//         new google.maps.InfoWindow({
+//             content: '<h3>'+mockMarkers[4].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
+//         }).open(allResultsMap, marker4);
+//   });
+//   var marker5 = new google.maps.Marker({
+//         position: {lat: mockMarkers[5].latitude, lng: mockMarkers[5].longitude},
+//         map: allResultsMap
+//   });
+//   marker5.addListener('click', function() {
+//         new google.maps.InfoWindow({
+//             content: '<h3>'+mockMarkers[5].name+'</h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
+//         }).open(allResultsMap, marker5);
+//   });
 
   for(var i = 0; i<mockMarkers.length-1; i++){
     var map = new google.maps.Map(

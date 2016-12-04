@@ -35,7 +35,7 @@
                     $latitudeIsNumeric &&
                     ($url==='' || $validUrl)
                 ){
-                    $ratingNum = substr($rating, 0, 5);
+                    $ratingNum = substr($rating, 0, 1);
                     include 'connect.php';
                     $insert_hotspot_query = $db->query("INSERT INTO `hotspots`(`name`, `longitude`, `latitude`, `website`, `rating`, `imageURL`) VALUES ('$name', '$longitude','$latitude', '$url', '$ratingNum','')");
                     $hotspotCreated = true;
