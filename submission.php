@@ -69,8 +69,9 @@
                     ?>
                     <br/>
                     <h2>Location</h2>
-                    <input type="text" class="textbox location-textbox" placeholder="Longitude" name="longitude"id="longitudeTextbox" value="<?php echo $longitude; ?>"/>
+
                     <input type="text" class="textbox location-textbox" placeholder="Latitude" name="latitude" id="latitudeTextbox" value="<?php echo $latitude; ?>"/>
+                    <input type="text" class="textbox location-textbox" placeholder="Longitude" name="longitude"id="longitudeTextbox" value="<?php echo $longitude; ?>"/>
                     <?php
                         if($post_request && ($longitude === '' || $latitude === '')){
                     ?>
