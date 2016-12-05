@@ -20,6 +20,7 @@
         <div class="content">
             <?php
                 $showFullMap=0;
+                $noResults=1;
                 $query=$_GET['query'];
                 $rating=$_GET['rating'];
 
@@ -63,12 +64,12 @@
 
                 $hotspots = $db->query($sql);
                 foreach ($hotspots as $hotspot) {
+                    $noResults = 0;
                     if($hotspot['distance'] <= 10){
                         $showFullMap = 1;
                         break;
                     }
                 }
-                // print_r($distance_query->fetchColumn());
 
             ?>
             <div class="inner-content search-results-inner-content">
@@ -108,6 +109,15 @@
                     }
                     ?>
                     <div class="flat-line"></div>
+                    <?php
+                        if($noResults){
+                    ?>
+                        <h2 class="content-title">
+                            No results were found.
+                        </h2>
+                    <?php
+                        }
+                    ?>
                     <table>
                         <?php
                         foreach ($db->query($sql) as $hotspot) {
