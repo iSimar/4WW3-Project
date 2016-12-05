@@ -15,27 +15,12 @@
     <body>
         <?php include 'header.php' ?>
         <div class="content homepage-content">
-            <?php
-                $post_request = $_SERVER['REQUEST_METHOD'] === 'POST';
-                $query = $_POST['query'];
-                $rating = $_POST['rating'];
-                if($rating === 'Any'){
-                    $rating = 'any';
-                }
-                else{
-                    $rating = substr($rating, 0, 1);
-                }
-                
-                if($post_request && $query!="" && $rating!=""){
-                    header("Location: https://{$_SERVER['HTTP_HOST']}/results.php?query=".$query."&rating=".$rating);
-                }
-            ?>
             <div class="gray-box search-box">
-                <form action="search.php" method="POST">
+                <form action="results.php" method="GET">
                 <h1>
                     Search Wifi Hotspots
                 </h1>
-                <input type="search" class="textbox text-box-full-width search-textbox show" name="query" placeholder="Name or Postal Code or Address" id="searchTextBox"/>
+                <input type="search" class="textbox text-box-full-width search-textbox show" name="query" placeholder="Name or Address or Postal Code or Coordinates (Optional)" id="searchTextBox"/>
                 <a class="small-link-2 underlined" id="useCurrentLocation">
                     <h3>Use Current Location</h3>
                 </a>
@@ -44,11 +29,11 @@
                 </span>
                 <select class="dropdown" name="rating">
                   <option selected>Any</option>
-                  <option>5 Stars</option>
-                  <option>4 Stars</option>
-                  <option>3 Stars</option>
-                  <option>2 Stars</option>
-                  <option>1 Stars</option>
+                  <option value="5">5 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="2">2 Stars</option>
+                  <option value="1">1 Stars</option>
                 </select>
                 <input type="submit" class="button search-button" value="Search"/>
                 </form>

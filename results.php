@@ -54,20 +54,32 @@
                 $long = $response->results[0]->geometry->location->lng;
 
                 include 'connect.php';
-                if($rating == 'any'){
-                     $sql = "(SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots HAVING distance < 10 ORDER BY distance) UNION (SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE name LIKE '%".$query."%')";
+                if($query != ''){
+                    if($rating == 'any'){
+                        $sql = "(SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots HAVING distance < 10 ORDER BY distance) UNION (SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE name LIKE '%".$query."%')";
+                    }
+                    else{
+                        $sql = "(SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE rating=".$rating." HAVING distance < 10 ORDER BY distance) UNION (SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE rating=".$rating." AND name LIKE '%".$query."%')";
+                    }
                 }
                 else{
-                    $sql = "(SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE rating=".$rating." HAVING distance < 10 ORDER BY distance) UNION (SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE rating=".$rating." AND name LIKE '%".$query."%')";
+                    if($rating == 'any'){
+                        $sql = "SELECT id, name, latitude, longitude, website, imageURL, rating FROM hotspots";
+                    }
+                    else{
+                        $sql = "SELECT id, name, latitude, longitude, website, imageURL, rating FROM hotspots WHERE rating=".$rating;
+                    }
                 }
                
 
                 $hotspots = $db->query($sql);
                 foreach ($hotspots as $hotspot) {
                     $noResults = 0;
-                    if($hotspot['distance'] <= 10){
-                        $showFullMap = 1;
-                        break;
+                    if($hotspot['distance']){
+                        if($hotspot['distance'] <= 10){
+                            $showFullMap = 1;
+                            break;
+                        }
                     }
                 }
 
@@ -77,7 +89,7 @@
                     Search Results
                 </h1>
                 <h2 class="content-title">
-                    Wifi Hotspots around "<u><?php echo $query; ?></u>" with <u><?php if($rating==='any'){ echo 'Any'; }else{ echo $rating.' Stars'; } ?></u> rating.
+                    Wifi Hotspots <?php if($query!=''){ ?>around "<u><?php echo $query; ?></u>" <?php } ?>with <u><?php if($rating==='any'){ echo 'Any'; }else{ echo $rating.' Stars'; } ?></u> rating.
                 </h2>
                 <div class="small-sweeper"></div>
                 <div class="blue-box search-results-search-box">
