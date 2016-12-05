@@ -34,6 +34,12 @@
                     $user_id_query = $db->query("SELECT `id` FROM `users` WHERE username='$username'");
                     $user_id = $user_id_query->fetchColumn();
                     $insert_hotspot_query = $db->query("INSERT INTO `reviews`(`user_id`, `hotspot_id`, `rating`) VALUES ('$user_id', '$id', '$rating')");
+                    $newRating = ceil(($rating+$hotspot['rating'])/2);
+                    $insert_hotspot_query = $db->query("UPDATE hotspots SET rating=$newRating WHERE id=$id");
+                    $hotspot_query = $db->query($sql);
+                    foreach ($hotspot_query as $tmp) {
+                        $hotspot = $tmp;
+                    }
                 }
             }
             else{
@@ -115,11 +121,7 @@
                 <div class="large-sweeper"></div>
             </div>
         </div>
-        <div class="footer"><!-- starting footer -->
-            <h5 class="footer-text"> <!-- starting footer-text h5 tag -->
-                All rights reserved, 2016. Simarpreet Singh. Made in Hamilton, ON.
-            </h5><!-- ending footer-text h5 tag -->
-        </div><!-- ending footer -->
+        <?php include 'footer.php' ?>
         <script src="./js/individual_result.js" type="text/javascript"></script>
         <script>
         var indiviualResultMap = new google.maps.Map(
