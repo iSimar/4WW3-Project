@@ -19,11 +19,16 @@
         <?php include 'header.php' ?>
         <div class="content">
             <?php
+                //show full width map with mutiple markers, used if the results are within 10 miles of each other
                 $showFullMap=0;
+                //noResults bool for no results message
                 $noResults=1;
+                
+                //get the query and rating get variables
                 $query=$_GET['query'];
                 $rating=$_GET['rating'];
 
+                //range of accepted values for rating otherwise set to any
                 if(is_numeric($rating)){
                     if(intval($rating) >=5 ){
                         $rating = 5;
@@ -40,8 +45,10 @@
                 }
                 
 
+                //google api endpoint for getting the geocode based on places, phrases, address and etc.
                 $url = "http://maps.google.com/maps/api/geocode/json?address=".urlencode($query)."&sensor=false&region=canada";
 
+                //curl request to get the long and lat from the search query
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -53,34 +60,49 @@
                 $lat = $response->results[0]->geometry->location->lat;
                 $long = $response->results[0]->geometry->location->lng;
 
+                //connect to database
                 include 'connect.php';
                 if($query != ''){
+                    //if query is not empty
                     if($rating == 'any'){
+                        //and rating is any
+                        //sql for getting object within 10 miles of the search query
+                        //also gets the objects whose names match the query
                         $sql = "(SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:lat) ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots HAVING distance < 10 ORDER BY distance) UNION (SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:lat) ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE name LIKE '%:query%')";
                     }
                     else{
+                        //and rating is a number
+                        //sql for getting object within 10 miles of the search query
+                        //also gets the objects whose names match the query
+                        //set a filter on the rating
                         $sql = "(SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:lat) ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE rating=:rating HAVING distance < 10 ORDER BY distance) UNION (SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:lat) ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE rating=:rating AND name LIKE '%:query%')";
                     }
                 }
                 else{
+                    //empty search query
                     if($rating == 'any'){
+                        //grab all objects in the db
                         $sql = "SELECT id, name, latitude, longitude, website, imageURL, rating FROM hotspots";
                     }
                     else{
+                        //grab objects based on rating only
                         $sql = "SELECT id, name, latitude, longitude, website, imageURL, rating FROM hotspots WHERE rating=:rating";
                     }
                 }
                
+                //run the sql query on the db and set to hotspots
                 $hotspots = $db->prepare($sql);
                 $hotspots->bindParam(':lat', $lat);
                 $hotspots->bindParam(':long', $long);
                 $hotspots->bindParam(':query', $query);
                 $hotspots->bindParam(':rating', $rating);
                 $hotspots->execute();
+                
+                //forloop through hotspots
                 foreach ($hotspots as $hotspot) {
-                    $noResults = 0;
+                    $noResults = 0; //don't show the no results message
                     if($hotspot['distance']){
-                        if($hotspot['distance'] <= 10){
+                        if($hotspot['distance'] <= 10){ //if there exists a object that is within 10 miles of the search query then show the full map
                             $showFullMap = 1;
                             break;
                         }
@@ -116,6 +138,7 @@
                 </div>
                 <div class="search-results-results-box">
                     <?php
+                    //show the full map if true
                     if($showFullMap){
                     ?>
                     <div class="flat-line"></div>
@@ -126,6 +149,7 @@
                     ?>
                     <div class="flat-line"></div>
                     <?php
+                    //show the no results message
                         if($noResults){
                     ?>
                         <h2 class="content-title">
@@ -136,6 +160,7 @@
                     ?>
                     <table>
                         <?php
+                        //for loop through hotspots to render the listview
                         $hotspots = $db->prepare($sql);
                         $hotspots->bindParam(':lat', $lat);
                         $hotspots->bindParam(':long', $long);
@@ -186,6 +211,7 @@
         }
         ?>
         <?php
+        //forloop through the hotspots to map them on the full map and the individual maps
         $hotspots = $db->prepare($sql);
         $hotspots->bindParam(':lat', $lat);
         $hotspots->bindParam(':long', $long);
