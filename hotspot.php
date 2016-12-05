@@ -19,9 +19,11 @@
         <?php include 'header.php' ?>
         <div class="content">
             <?php
+            //get id get variable
             $id = $_GET['id'];
+            //connect to db
             include 'connect.php';
-
+            //get hotspot details from db
             $sql = "SELECT id, name, latitude, longitude, website, imageURL, rating FROM hotspots WHERE id=:id";
             $hotspot_query = $db->prepare($sql);
             $hotspot_query->bindParam(':id', $id);
@@ -30,22 +32,29 @@
             foreach ($hotspot_query as $tmp) {
                 $hotspot = $tmp;
             }
-            if($hotspot){
+            if($hotspot){ //if hotspot exists
+                //if user submitted a review
                 //if bool variable for checking if it's a post request
                 $post_request = $_SERVER['REQUEST_METHOD'] === 'POST';
+                //get rating post variable
                 $rating = $_POST['rating'];
+                //if session is set and the rating is not empty
                 if($rating!= '' && isset($_SESSION['session_id']) && isset($_SESSION['session_username'])){
                     $username = $_SESSION['session_username'];
+                    //get user id
                     $user_id_query = $db->prepare("SELECT `id` FROM `users` WHERE username=:username");
                     $user_id_query->bindParam(':username', $username);
                     $user_id_query->execute();
                     $user_id = $user_id_query->fetchColumn();
+                    //insert new review
                     $insert_hotspot_query = $db->prepare("INSERT INTO `reviews`(`user_id`, `hotspot_id`, `rating`) VALUES (:user_id, :id, :rating)");
                     $insert_hotspot_query->bindParam(':user_id', $user_id);
                     $insert_hotspot_query->bindParam(':id', $id);
                     $insert_hotspot_query->bindParam(':rating', $rating);
                     $insert_hotspot_query->execute();
+                    //get avg of current rating
                     $newRating = ceil(($rating+$hotspot['rating'])/2);
+                    //update rating of the hotspot in hotspots table
                     $update_hotspot_query = $db->prepare("UPDATE hotspots SET rating=$newRating WHERE id=:id");
                     $update_hotspot_query->bindParam(':id', $id);
                     $update_hotspot_query->execute();
@@ -57,7 +66,7 @@
                     }
                 }
             }
-            else{
+            else{//redirect to search if hotspot doesn't exist
                 header("Location: https://{$_SERVER['HTTP_HOST']}/search.php");
             }
             ?>
