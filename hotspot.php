@@ -21,8 +21,12 @@
             <?php
             $id = $_GET['id'];
             include 'connect.php';
-            $sql = "SELECT id, name, latitude, longitude, website, imageURL, rating FROM hotspots WHERE id=".$id;
-            $hotspot_query = $db->query($sql);
+
+            $sql = "SELECT id, name, latitude, longitude, website, imageURL, rating FROM hotspots WHERE id=:id";
+            $hotspot_query = $db->prepare($sql);
+            $hotspot_query->bindParam(':id', $id);
+            $hotspot_query->execute();
+
             foreach ($hotspot_query as $tmp) {
                 $hotspot = $tmp;
             }
@@ -31,12 +35,22 @@
                 $rating = $_POST['rating'];
                 if($rating!= '' && isset($_SESSION['session_id']) && isset($_SESSION['session_username'])){
                     $username = $_SESSION['session_username'];
-                    $user_id_query = $db->query("SELECT `id` FROM `users` WHERE username='$username'");
+                    $user_id_query = $db->prepare("SELECT `id` FROM `users` WHERE username=:username");
+                    $user_id_query->bindParam(':username', $username);
+                    $user_id_query->execute();
                     $user_id = $user_id_query->fetchColumn();
-                    $insert_hotspot_query = $db->query("INSERT INTO `reviews`(`user_id`, `hotspot_id`, `rating`) VALUES ('$user_id', '$id', '$rating')");
+                    $insert_hotspot_query = $db->prepare("INSERT INTO `reviews`(`user_id`, `hotspot_id`, `rating`) VALUES (:user_id, :id, :rating)");
+                    $insert_hotspot_query->bindParam(':user_id', $user_id);
+                    $insert_hotspot_query->bindParam(':id', $id);
+                    $insert_hotspot_query->bindParam(':rating', $rating);
+                    $insert_hotspot_query->execute();
                     $newRating = ceil(($rating+$hotspot['rating'])/2);
-                    $insert_hotspot_query = $db->query("UPDATE hotspots SET rating=$newRating WHERE id=$id");
-                    $hotspot_query = $db->query($sql);
+                    $update_hotspot_query = $db->prepare("UPDATE hotspots SET rating=$newRating WHERE id=:id");
+                    $update_hotspot_query->bindParam(':id', $id);
+                    $update_hotspot_query->execute();
+                    $hotspot_query = $db->prepare($sql);
+                    $hotspot_query->bindParam(':id', $id);
+                    $hotspot_query->execute();
                     foreach ($hotspot_query as $tmp) {
                         $hotspot = $tmp;
                     }
@@ -45,7 +59,6 @@
             else{
                 header("Location: https://{$_SERVER['HTTP_HOST']}/search.php");
             }
-            $user_reviews_sql = "SELECT users.full_name, users.username, reviews.rating FROM users, reviews WHERE users.id=reviews.user_id AND reviews.hotspot_id=".$id;            
             ?>
             <div class="inner-content search-results-inner-content">
                 <!-- object instance title -->
@@ -108,7 +121,11 @@
                 <?php
                 }
                 $noReviews = 1;
-                foreach ($db->query($user_reviews_sql) as $review) {
+                $user_reviews_sql = "SELECT users.full_name, users.username, reviews.rating FROM users, reviews WHERE users.id=reviews.user_id AND reviews.hotspot_id=:id";
+                $get_reviews_query = $db->prepare($user_reviews_sql);
+                $get_reviews_query->bindParam(':id', $id);
+                $get_reviews_query->execute();
+                foreach ($get_reviews_query as $review) {
                     $noReviews = 0;
                 ?>
                 <div class="user-review-box">

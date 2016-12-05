@@ -51,11 +51,12 @@
                     $latitudeIsNumeric &&
                     ($url==='' || $validUrl)
                 ){
+                    $imageURL = '';
                     if($img_filepath != '' && $img != ''){
                         $s3 = S3Client::factory(array(
                         'credentials'=> [
-                            'key'    => 'AKIAILGN6ARHF7F6UNYQ',
-                            'secret' => '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'],
+                            'key'    => 'AKIAJYKF4YF5ATFHDWHA',
+                            'secret' => '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'],
                             'region' => 'us-west-2',
                             'version'=> '2006-03-01'
                         ));
@@ -67,18 +68,42 @@
                             'ContentType' =>'image/jpeg',
                             'ACL'    => 'public-read'
                         ));
-                        // Print the URL to the object.
                         $imageURL =  $result['ObjectURL'];
                     }
-
-                    $ratingNum = substr($rating, 0, 1);
                     include 'connect.php';
-                    $insert_hotspot_query = $db->query("INSERT INTO `hotspots`(`name`, `longitude`, `latitude`, `website`, `rating`, `imageURL`) VALUES ('$name', '$longitude','$latitude', '$url', '$ratingNum','$imageURL')");
-                    $hotspot_id_query = $db->query("SELECT `id` FROM `hotspots` WHERE name='$name' AND longitude='$longitude' AND latitude='$latitude' AND website='$website' AND rating='$rating' AND imageURL='$imageURL'");
+
+                    $insert_hotspot_query = $db->prepare("INSERT INTO `hotspots`(`name`, `longitude`, `latitude`, `website`, `rating`, `imageURL`) VALUES (:name, :longitude, :latitude, :url, :ratingNum, :imageURL)");
+                    $insert_hotspot_query->bindParam(':name', $name);
+                    $insert_hotspot_query->bindParam(':longitude', $longitude);
+                    $insert_hotspot_query->bindParam(':latitude', $latitude);
+                    $insert_hotspot_query->bindParam(':url', $url);
+                    $insert_hotspot_query->bindParam(':ratingNum', $rating);
+                    $insert_hotspot_query->bindParam(':imageURL', $imageURL);
+                    $insert_hotspot_query->execute();
+
+                    $hotspot_id_query = $db->prepare("SELECT `id` FROM `hotspots` WHERE name=:name AND longitude=:longitude AND latitude=:latitude AND website=:url AND rating=:ratingNum AND imageURL=:imageURL");
+                    $hotspot_id_query->bindParam(':name', $name);
+                    $hotspot_id_query->bindParam(':longitude', $longitude);
+                    $hotspot_id_query->bindParam(':latitude', $latitude);
+                    $hotspot_id_query->bindParam(':url', $url);
+                    $hotspot_id_query->bindParam(':ratingNum', $rating);
+                    $hotspot_id_query->bindParam(':imageURL', $imageURL);
+                    $hotspot_id_query->execute();
+
                     $hotspot_id = $hotspot_id_query->fetchColumn();
-                    $user_id_query = $db->query("SELECT `user_id` FROM `sessions` WHERE id='$session_id'");
+
+                    $user_id_query = $db->prepare("SELECT `user_id` FROM `sessions` WHERE id=:session_id");
+                    $user_id_query->bindParam(':session_id', $session_id);
+                    $user_id_query->execute();
+
                     $user_id = $user_id_query->fetchColumn();
-                    $insert_hotspot_query = $db->query("INSERT INTO `reviews`(`user_id`, `hotspot_id`, `rating`) VALUES ('$user_id', '$hotspot_id', '$ratingNum')");
+
+                    $insert_hotspot_query = $db->prepare("INSERT INTO `reviews`(`user_id`, `hotspot_id`, `rating`) VALUES (:user_id, :hotspot_id, :ratingNum)");
+                    $insert_hotspot_query->bindParam(':user_id', $user_id);
+                    $insert_hotspot_query->bindParam(':hotspot_id', $hotspot_id);
+                    $insert_hotspot_query->bindParam(':ratingNum', $rating);
+                    $insert_hotspot_query->execute();
+                    
                     $hotspotCreated = true;
                 }
             ?>
@@ -170,11 +195,11 @@
                     <br/>
                     <h2>Rating</h2>
                     <select class="dropdown submit-dropdown" name="rating">
-                      <option>5 Stars</option>
-                      <option>4 Stars</option>
-                      <option>3 Stars</option>
-                      <option>2 Stars</option>
-                      <option>1 Stars</option>
+                      <option value="5">5 Stars</option>
+                      <option value="4">4 Stars</option>
+                      <option value="3">3 Stars</option>
+                      <option value="2">2 Stars</option>
+                      <option value="1">1 Stars</option>
                     </select>
                     <br/>
                     <br/>

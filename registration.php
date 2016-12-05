@@ -46,12 +46,22 @@
                     $password == $confirmPassword
                    ) {
                     include 'connect.php';
-                    $count_username_query = $db->query("SELECT count(*) FROM `users` WHERE username='$username'");
+                    $count_username_query = $db->prepare("SELECT count(*) FROM `users` WHERE username=:username");
+                    $count_username_query->bindParam(':username', $username);
+                    $count_username_query->execute();
                     if($count_username_query->fetchColumn()==0){
                         $username_exists = false;
                         $salt = bin2hex(openssl_random_pseudo_bytes(20));
                         $hash_password = hash('sha256', $password.$salt);
-                        $insert_user_query = $db->query("INSERT INTO `users`(`username`, `password`, `salt`, `birth_date`, `email`, `phone_number`, `full_name`) VALUES ('$username','$hash_password','$salt','$birthDate','$email','$phone','$fullName')");
+                        $insert_user_query = $db->prepare("INSERT INTO `users`(`username`, `password`, `salt`, `birth_date`, `email`, `phone_number`, `full_name`) VALUES (:username, :hash_password, :salt, :birthDate, :email, :phone, :fullName)");
+                        $insert_user_query->bindParam(':username', $username);
+                        $insert_user_query->bindParam(':hash_password', $hash_password);
+                        $insert_user_query->bindParam(':salt', $salt);
+                        $insert_user_query->bindParam(':birthDate', $birthDate);
+                        $insert_user_query->bindParam(':email', $email);
+                        $insert_user_query->bindParam(':phone', $phone);
+                        $insert_user_query->bindParam(':fullName', $fullName);
+                        $insert_user_query->execute();
                         $accountCreated = true;
                     }
                     else{

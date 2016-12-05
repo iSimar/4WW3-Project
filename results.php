@@ -56,10 +56,10 @@
                 include 'connect.php';
                 if($query != ''){
                     if($rating == 'any'){
-                        $sql = "(SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots HAVING distance < 10 ORDER BY distance) UNION (SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE name LIKE '%".$query."%')";
+                        $sql = "(SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:lat) ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots HAVING distance < 10 ORDER BY distance) UNION (SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:lat) ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE name LIKE '%:query%')";
                     }
                     else{
-                        $sql = "(SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE rating=".$rating." HAVING distance < 10 ORDER BY distance) UNION (SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(".$lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(".$long.") ) + sin( radians(".$lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE rating=".$rating." AND name LIKE '%".$query."%')";
+                        $sql = "(SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:lat) ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE rating=:rating HAVING distance < 10 ORDER BY distance) UNION (SELECT id, name, latitude, longitude, website, imageURL, rating, ( 3959 * acos( cos( radians(:lat) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(:long) ) + sin( radians(:lat) ) * sin( radians( latitude ) ) ) ) AS distance FROM hotspots WHERE rating=:rating AND name LIKE '%:query%')";
                     }
                 }
                 else{
@@ -67,12 +67,16 @@
                         $sql = "SELECT id, name, latitude, longitude, website, imageURL, rating FROM hotspots";
                     }
                     else{
-                        $sql = "SELECT id, name, latitude, longitude, website, imageURL, rating FROM hotspots WHERE rating=".$rating;
+                        $sql = "SELECT id, name, latitude, longitude, website, imageURL, rating FROM hotspots WHERE rating=:rating";
                     }
                 }
                
-
-                $hotspots = $db->query($sql);
+                $hotspots = $db->prepare($sql);
+                $hotspots->bindParam(':lat', $lat);
+                $hotspots->bindParam(':long', $long);
+                $hotspots->bindParam(':query', $query);
+                $hotspots->bindParam(':rating', $rating);
+                $hotspots->execute();
                 foreach ($hotspots as $hotspot) {
                     $noResults = 0;
                     if($hotspot['distance']){
@@ -132,7 +136,13 @@
                     ?>
                     <table>
                         <?php
-                        foreach ($db->query($sql) as $hotspot) {
+                        $hotspots = $db->prepare($sql);
+                        $hotspots->bindParam(':lat', $lat);
+                        $hotspots->bindParam(':long', $long);
+                        $hotspots->bindParam(':query', $query);
+                        $hotspots->bindParam(':rating', $rating);
+                        $hotspots->execute();
+                        foreach ($hotspots as $hotspot) {
                         ?>
                         <tr>
                             <td>
@@ -176,7 +186,13 @@
         }
         ?>
         <?php
-        foreach ($db->query($sql) as $hotspot) {
+        $hotspots = $db->prepare($sql);
+        $hotspots->bindParam(':lat', $lat);
+        $hotspots->bindParam(':long', $long);
+        $hotspots->bindParam(':query', $query);
+        $hotspots->bindParam(':rating', $rating);
+        $hotspots->execute();
+        foreach ($hotspots as $hotspot) {
         ?>
         <?php
         if($showFullMap){
