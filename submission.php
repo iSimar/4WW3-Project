@@ -16,6 +16,16 @@
         <?php include 'header.php' ?>
         <div class="content">
             <?php
+                // ini_set('display_startup_errors', 1);
+                // ini_set('display_errors', 1);
+                // error_reporting(-1);
+
+                require 'vendor/autoload.php';
+                use Aws\S3\S3Client;
+                $s3_bucket_name = '4ww3-project-images';
+                $s3_access_key = 'AKIAJJJSOACIUXC3ERDQ';
+                $s3_secret_key = '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';
+
                 $post_request = $_SERVER['REQUEST_METHOD'] === 'POST';
                 $hotspotCreated = false;
                 $name = $_POST['name'];
@@ -23,6 +33,12 @@
                 $latitude = $_POST['latitude'];
                 $url = $_POST['url'];
                 $rating = $_POST['rating'];
+                $img_filepath = $_FILES['image']['tmp_name'];
+                $img = $_FILES['image']['name'];
+                // print_r($_FILES);
+                // echo $img;
+                // echo $img_filepath;
+                
                 $longitudeIsNumeric = preg_match('/^\-?\d+(\.\d+)?$/', $longitude);
                 $latitudeIsNumeric = preg_match('/^\-?\d+(\.\d+)?$/', $latitude);
                 $validUrl = preg_match('/^(http:\/\/|https:\/\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?$/', $url);
@@ -35,9 +51,29 @@
                     $latitudeIsNumeric &&
                     ($url==='' || $validUrl)
                 ){
+                    if($img_filepath != '' && $img != ''){
+                        $s3 = S3Client::factory(array(
+                        'credentials'=> [
+                            'key'    => 'AKIAILGN6ARHF7F6UNYQ',
+                            'secret' => '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'],
+                            'region' => 'us-west-2',
+                            'version'=> '2006-03-01'
+                        ));
+                        // Upload data using amazon s3 bucket
+                        $result = $s3->putObject(array(
+                            'Bucket' => $s3_bucket_name,
+                            'Key'    => $img,
+                            'SourceFile'   => $img_filepath,
+                            'ContentType' =>'image/jpeg',
+                            'ACL'    => 'public-read'
+                        ));
+                        // Print the URL to the object.
+                        $imageURL =  $result['ObjectURL'];
+                    }
+
                     $ratingNum = substr($rating, 0, 1);
                     include 'connect.php';
-                    $insert_hotspot_query = $db->query("INSERT INTO `hotspots`(`name`, `longitude`, `latitude`, `website`, `rating`, `imageURL`) VALUES ('$name', '$longitude','$latitude', '$url', '$ratingNum','')");
+                    $insert_hotspot_query = $db->query("INSERT INTO `hotspots`(`name`, `longitude`, `latitude`, `website`, `rating`, `imageURL`) VALUES ('$name', '$longitude','$latitude', '$url', '$ratingNum','$imageURL')");
                     $hotspot_id_query = $db->query("SELECT `id` FROM `hotspots` WHERE name='$name' AND longitude='$longitude' AND latitude='$latitude' AND website='$website' AND rating='$rating' AND imageURL='$imageURL'");
                     $hotspot_id = $hotspot_id_query->fetchColumn();
                     $user_id_query = $db->query("SELECT `user_id` FROM `sessions` WHERE id='$session_id'");
@@ -63,7 +99,7 @@
                         }
                         else{
                     ?>
-                    <form action="submission.php" method="POST">
+                    <form action="submission.php" method="POST" enctype="multipart/form-data">
                     <h2>Name</h2>
                     <input type="text" class="textbox text-box-full-width" placeholder="eg. Starbucks, thode library, pizza pizza" name="name" id="name" value="<?php echo $name; ?>"/>
                     <?php
