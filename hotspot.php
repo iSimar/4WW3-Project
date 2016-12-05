@@ -62,7 +62,22 @@
                 <div class="small-sweeper"></div>
                 <div class="divider"></div>
                 <div class="small-sweeper"></div>
-                <div id="indiviualResultMap" style="width:100%;height:300px"></div>
+                <table>
+                    <tr>
+                        <?php
+                        if($hotspot['imageURL'] != ''){
+                        ?>
+                        <td style="width: 300px;">
+                            <img src="<?php echo $hotspot['imageURL']; ?>" width="300"/>                         
+                        </td>
+                        <?php
+                        }
+                        ?>
+                        <td>
+                            <div id="indiviualResultMap" style="width:100%;height:300px"></div>                            
+                        </td>
+                    </tr>
+                </table>
                 <!--<img src="./images/wide-map-placeholder.png" class="wide-map-placeholder" alt="map-holder"/>-->
                 <div class="small-sweeper"></div>
                 <div class="divider"></div>
