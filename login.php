@@ -59,7 +59,18 @@
             ?>
             <div class="inner-content">
                 <h1 class="content-title">
-                    User Login
+                    <?php 
+                     if($_GET['goTo']==='submit'){
+                    ?>
+                    Login to Submit
+                    <?php
+                     }
+                     else {
+                    ?>
+                    Login
+                    <?php
+                     }
+                    ?>
                 </h1>
                 <div class="small-sweeper"></div>
                 <div class="blue-box login-box">

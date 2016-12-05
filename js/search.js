@@ -15,6 +15,7 @@ function onClickUseCurrentLocation() {
         if (navigator.geolocation) { //if browser can find the geo location
             navigator.geolocation.getCurrentPosition(function(position){ // find geo location pass callback function
                 $('#'+searchTextBoxButtonId).val(position.coords.latitude+', '+position.coords.longitude);//change the current location button text
+                $('#'+useCurrentLocationButtonId).html('<h3></h3>');
             });
         } else {
             $('#'+useCurrentLocationButtonId).html('<h3>Geolocation is not supported by this browser.</h3>'); //if geolocation is not supported show this
