@@ -139,7 +139,7 @@
                                 <div class="search-results-result-box">
                                     <div id="searchResultsMap-<?php echo $hotspot['id']; ?>" class="small-map" style="width:180px;height:180px"></div>
                                     <div class="details">
-                                        <a href="individual_sample.php">
+                                        <a href="hotspot.php?id=<?php echo $hotspot['id']; ?>">
                                             <h2><?php echo $hotspot['name']; ?></h2>
                                         </a>
                                         <?php if($hotspot['website'] != ''){ ?>
@@ -192,7 +192,7 @@
         });
         marker<?php echo $hotspot['id']; ?>.addListener('click', function() {
             new google.maps.InfoWindow({
-                content: '<h3><?php echo $hotspot['name']; ?></h3><a class="small-link" href="individual_sample.php">Learn More...</a>'
+                content: '<h3><?php echo $hotspot['name']; ?></h3><a class="small-link" href="hotspot.php?id=<?php echo $hotspot['id']; ?>">Learn More...</a>'
             }).open(allResultsMap, marker<?php echo $hotspot['id']; ?>);
         });
         <?php

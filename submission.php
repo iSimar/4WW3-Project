@@ -38,6 +38,11 @@
                     $ratingNum = substr($rating, 0, 1);
                     include 'connect.php';
                     $insert_hotspot_query = $db->query("INSERT INTO `hotspots`(`name`, `longitude`, `latitude`, `website`, `rating`, `imageURL`) VALUES ('$name', '$longitude','$latitude', '$url', '$ratingNum','')");
+                    $hotspot_id_query = $db->query("SELECT `id` FROM `hotspots` WHERE name='$name' AND longitude='$longitude' AND latitude='$latitude' AND website='$website' AND rating='$rating' AND imageURL='$imageURL'");
+                    $hotspot_id = $hotspot_id_query->fetchColumn();
+                    $user_id_query = $db->query("SELECT `user_id` FROM `sessions` WHERE id='$session_id'");
+                    $user_id = $user_id_query->fetchColumn();
+                    $insert_hotspot_query = $db->query("INSERT INTO `reviews`(`user_id`, `hotspot_id`, `rating`) VALUES ('$user_id', '$hotspot_id', '$ratingNum')");
                     $hotspotCreated = true;
                 }
             ?>
@@ -50,6 +55,14 @@
                 </h2>
                 <div class="small-sweeper"></div>
                 <div class="blue-box submit-box">
+                    <?php 
+                        if($hotspotCreated){
+                    ?>
+                    <h2>Hotspot has been submitted! Thank you.</h2>
+                    <?php
+                        }
+                        else{
+                    ?>
                     <form action="submission.php" method="POST">
                     <h2>Name</h2>
                     <input type="text" class="textbox text-box-full-width" placeholder="eg. Starbucks, thode library, pizza pizza" name="name" id="name" value="<?php echo $name; ?>"/>
@@ -137,6 +150,9 @@
                     <br/>
                     <br/>
                     </form>
+                    <?php
+                        }
+                    ?>
                 </div>
                 <div class="large-sweeper"></div>
                 <div class="large-sweeper"></div>
