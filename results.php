@@ -99,12 +99,12 @@
                     <input type="search" class="textbox text-box-full-width" value="<?php echo $query; ?>" placeholder="(Optional)" name="query"/>
                     <h2 class="small-h2">Rating</h2>
                     <select class="dropdown" name="rating">
-                      <option <?php if($rating==='any'){ echo 'selected'; } ?>>Any</option>
-                      <option <?php if($rating==5){ echo 'selected'; } ?>>5</option>
-                      <option <?php if($rating==4){ echo 'selected'; } ?>>4</option>
-                      <option <?php if($rating==3){ echo 'selected'; } ?>>3</option>
-                      <option <?php if($rating==2){ echo 'selected'; } ?>>2</option>
-                      <option <?php if($rating==1){ echo 'selected'; } ?>>1</option>
+                      <option value="any" <?php if($rating==='any'){ echo 'selected'; } ?>>Any</option>
+                      <option value="5" <?php if($rating==5){ echo 'selected'; } ?>>5 Stars</option>
+                      <option value="4" <?php if($rating==4){ echo 'selected'; } ?>>4 Stars</option>
+                      <option value="3" <?php if($rating==3){ echo 'selected'; } ?>>3 Stars</option>
+                      <option value="2" <?php if($rating==2){ echo 'selected'; } ?>>2 Stars</option>
+                      <option value="1" <?php if($rating==1){ echo 'selected'; } ?>>1 Stars</option>
                     </select>
                     <div class="small-sweeper"></div>
                     <input type="submit" class="button" value="Search"/>
