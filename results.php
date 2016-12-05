@@ -81,19 +81,21 @@
                 <div class="small-sweeper"></div>
                 <div class="blue-box search-results-search-box">
                     <h2>Redefine Search</h2>
+                    <form action="results.php" method="GET">
                     <h2 class="small-h2">Location</h2>
-                    <input type="search" class="textbox text-box-full-width" value="<?php echo $query; ?>" placeholder="(Optional)"/>
+                    <input type="search" class="textbox text-box-full-width" value="<?php echo $query; ?>" placeholder="(Optional)" name="query"/>
                     <h2 class="small-h2">Rating</h2>
-                    <select class="dropdown">
+                    <select class="dropdown" name="rating">
                       <option <?php if($rating==='any'){ echo 'selected'; } ?>>Any</option>
-                      <option <?php if($rating==5){ echo 'selected'; } ?>>5 Stars</option>
-                      <option <?php if($rating==4){ echo 'selected'; } ?>>4 Stars</option>
-                      <option <?php if($rating==3){ echo 'selected'; } ?>>3 Stars</option>
-                      <option <?php if($rating==2){ echo 'selected'; } ?>>2 Stars</option>
-                      <option <?php if($rating==1){ echo 'selected'; } ?>>1 Stars</option>
+                      <option <?php if($rating==5){ echo 'selected'; } ?>>5</option>
+                      <option <?php if($rating==4){ echo 'selected'; } ?>>4</option>
+                      <option <?php if($rating==3){ echo 'selected'; } ?>>3</option>
+                      <option <?php if($rating==2){ echo 'selected'; } ?>>2</option>
+                      <option <?php if($rating==1){ echo 'selected'; } ?>>1</option>
                     </select>
                     <div class="small-sweeper"></div>
-                    <a href="results_sample.php" class="button">Search</a>
+                    <input type="submit" class="button" value="Search"/>
+                    </form>
                 </div>
                 <div class="search-results-results-box">
                     <?php
