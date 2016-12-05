@@ -16,16 +16,12 @@
         <?php include 'header.php' ?>
         <div class="content">
             <?php
-                // ini_set('display_startup_errors', 1);
-                // ini_set('display_errors', 1);
-                // error_reporting(-1);
 
                 require 'vendor/autoload.php';
                 use Aws\S3\S3Client;
                 $s3_bucket_name = '4ww3-project-images';
-                $s3_access_key = 'AKIAJJJSOACIUXC3ERDQ';
-                $s3_secret_key = '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';
 
+                //if bool variable for checking if it's a post request
                 $post_request = $_SERVER['REQUEST_METHOD'] === 'POST';
                 $hotspotCreated = false;
                 $name = $_POST['name'];

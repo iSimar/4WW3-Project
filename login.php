@@ -14,6 +14,7 @@
         <?php include 'header.php' ?>
         <div class="content">
             <?php
+                //if bool variable for checking if it's a post request
                 $post_request = $_SERVER['REQUEST_METHOD'] === 'POST';
 
                 $incorrect_username_or_password = false;

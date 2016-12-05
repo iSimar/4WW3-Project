@@ -17,9 +17,13 @@
         <?php include 'header.php' ?>
         <div class="content">
             <?php
-                $processed = $_SERVER['REQUEST_METHOD'] === 'POST';
+                //if bool variable for checking if it's a post request
+                $post_request = $_SERVER['REQUEST_METHOD'] === 'POST';
+
+                //bool for if the account is created - used to show the success message
                 $accountCreated = false;
                 
+                //setting the post variables 
                 $username = $_POST['username'];
                 $fullName = $_POST['fullName'];
                 $birthDate = $_POST['birthDate'];
@@ -28,9 +32,10 @@
                 $password = $_POST['password'];
                 $confirmPassword = $_POST['confirmPassword'];
 
-                // print_r($_POST);
+                //if it's a post request and the post variables are not empty, and also they meet 
+                //the regex test. if the form is fully valid
                 if(
-                    $processed &&
+                    $post_request &&
                     $username !=='' &&
                     $fullName !=='' &&
                     $birthDate !== '' &&
@@ -45,14 +50,21 @@
                     strlen($phone)==10 &&
                     $password == $confirmPassword
                    ) {
+                    //connect to db
                     include 'connect.php';
+                    //get a count of users with the username entered
                     $count_username_query = $db->prepare("SELECT count(*) FROM `users` WHERE username=:username");
                     $count_username_query->bindParam(':username', $username);
                     $count_username_query->execute();
+                    //if count is 0 procced
                     if($count_username_query->fetchColumn()==0){
+                        //set the username_exists to false so it doesn't show the username exists message
                         $username_exists = false;
+                        //generate new salt
                         $salt = bin2hex(openssl_random_pseudo_bytes(20));
+                        //concat salt with raw password and hash it
                         $hash_password = hash('sha256', $password.$salt);
+                        //insert a new user row into the users table
                         $insert_user_query = $db->prepare("INSERT INTO `users`(`username`, `password`, `salt`, `birth_date`, `email`, `phone_number`, `full_name`) VALUES (:username, :hash_password, :salt, :birthDate, :email, :phone, :fullName)");
                         $insert_user_query->bindParam(':username', $username);
                         $insert_user_query->bindParam(':hash_password', $hash_password);
@@ -62,16 +74,17 @@
                         $insert_user_query->bindParam(':phone', $phone);
                         $insert_user_query->bindParam(':fullName', $fullName);
                         $insert_user_query->execute();
+                        //set accountCreated bool to true, so the success message is displayed
                         $accountCreated = true;
                     }
                     else{
+                        //if count is not 0 then set the username_exists variable to true
+                        //used to display the user exists message
                         $username_exists = true;
                     }
-                    $insert_user_query = null;
-                    $count_username_query = null;
-                    $db = null;
               }
-              if($processed && $accountCreated){
+              //if it was a post request and the account has been created show the success message
+              if($post_request && $accountCreated){
             ?>
                 <div class="inner-content">
                     <h1 class="content-title">
@@ -87,6 +100,7 @@
                 </div>
             <?php
                 }
+                //if the account is not created show the register form
                 else {
             ?>
             <div class="inner-content">
@@ -99,7 +113,8 @@
                     <br/>
                     <input type="text" name="username" class="textbox text-box-full-width" placeholder="Username" id="username" value="<?php echo $username ?>"/>
                     <?php 
-                        if($processed && $username && $username_exists == 1){
+                        //if the username exists show the user exists form error message
+                        if($post_request && $username && $username_exists == 1){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -111,7 +126,8 @@
                         </div>
                     <?php
                         }
-                        else if($processed && !$username){
+                        //if the username was empty show the form error message
+                        else if($post_request && !$username){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -127,7 +143,8 @@
                     <div class="small-sweeper"></div>
                     <input type="text" class="textbox text-box-full-width" name="fullName" placeholder="Full Name" id="fullName" value="<?php echo $fullName ?>"/>
                     <?php 
-                        if($processed && $fullName && !preg_match('/^[a-zA-Z\s]+$/', $fullName)){
+                        //if the fullname field was not alphabetics only show the form error message
+                        if($post_request && $fullName && !preg_match('/^[a-zA-Z\s]+$/', $fullName)){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -139,7 +156,8 @@
                         </div> 
                     <?php
                         }
-                        else if($processed && !$fullName){
+                        //if the fullname field was empty show the form error message
+                        else if($post_request && !$fullName){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -155,7 +173,8 @@
                     <div class="small-sweeper"></div>
                     <input type="text" class="textbox text-box-full-width" placeholder="Birth Date (MM/DD/YYYY)" id="birthDate" name="birthDate" value="<?php echo $birthDate ?>"/>
                     <?php 
-                        if($processed && $birthDate && !preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $birthDate)){
+                        //if the birthDate did not match the valid format show the form error message
+                        if($post_request && $birthDate && !preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $birthDate)){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -167,7 +186,8 @@
                         </div> 
                     <?php
                         }
-                        else if($processed && !$birthDate){
+                        //if the birthDate field was empty show the form error message
+                        else if($post_request && !$birthDate){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -183,7 +203,8 @@
                     <div class="small-sweeper"></div>
                     <input type="email" class="textbox text-box-full-width" placeholder="Email" id="email" name="email" value="<?php echo $email ?>"/>
                     <?php 
-                        if($processed && $email && !preg_match('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/', $email)){
+                        //if the email value was not in the email format show the form error message
+                        if($post_request && $email && !preg_match('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/', $email)){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -195,7 +216,8 @@
                         </div> 
                     <?php
                         }
-                        else if($processed && !$email){
+                        //if the email field was empty show the form error message
+                        else if($post_request && !$email){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -211,7 +233,8 @@
                     <div class="small-sweeper"></div>
                     <input type="text" class="textbox text-box-full-width" placeholder="Phone Number (ex: 4161234567)" id="phone" name="phone" value="<?php echo $phone ?>"/>
                     <?php 
-                        if($processed && $phone && !preg_match('/^[0-9]+$/', $phone)){
+                        //if the phone value was not in the phone format show the form error message
+                        if($post_request && $phone && !preg_match('/^[0-9]+$/', $phone)){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -223,7 +246,8 @@
                         </div> 
                     <?php
                         }
-                        else if($processed && $phone && strlen($phone)!=10){
+                        //if the phone value was not 10 characters long show the form error message
+                        else if($post_request && $phone && strlen($phone)!=10){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -235,7 +259,8 @@
                         </div>
                     <?php
                         }
-                        else if($processed && !$phone){
+                        //if the phone value was empty show the form error message
+                        else if($post_request && !$phone){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -251,7 +276,8 @@
                     <div class="small-sweeper"></div>
                     <input type="password" class="textbox text-box-full-width" placeholder="Password" id="password" name="password"/>
                     <?php 
-                        if($processed && $password != $confirmPassword){
+                        //if the password and confirm password valid did not match show the form error message
+                        if($post_request && $password != $confirmPassword){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -263,7 +289,8 @@
                         </div> 
                     <?php
                         }
-                        else if($processed && !$password){
+                        //if the password was empty show the form error message
+                        else if($post_request && !$password){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">
@@ -279,7 +306,8 @@
                     <div class="small-sweeper"></div>
                     <input type="password" class="textbox text-box-full-width" placeholder="Confirm Password" id="confirmPassword" name="confirmPassword"/>
                     <?php
-                        if($processed && !$confirmPassword){
+                    //if the confirm password was empty show the form error message
+                        if($post_request && !$confirmPassword){
                     ?>
                         <div class="error-message-box" style="display:block;">
                             <div class="error-message-box-title">

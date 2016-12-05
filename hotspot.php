@@ -31,6 +31,7 @@
                 $hotspot = $tmp;
             }
             if($hotspot){
+                //if bool variable for checking if it's a post request
                 $post_request = $_SERVER['REQUEST_METHOD'] === 'POST';
                 $rating = $_POST['rating'];
                 if($rating!= '' && isset($_SESSION['session_id']) && isset($_SESSION['session_username'])){
